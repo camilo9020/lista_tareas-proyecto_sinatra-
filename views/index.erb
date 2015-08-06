@@ -1,0 +1,66 @@
+
+<div id="add" class="container">
+  <form action="/" method="post" class="form-horizontal">
+    
+    <div class="form-group">
+      <label class="" for="new">Nueva tarea:</label>
+      <input class="form-control" name="content" type="text" placeholder="Nueva tarea:">
+    </div>
+    
+    <div class="form-group">
+      <input class="btn btn-primary"type="submit" value="Agrega una tarea">
+    </div>
+  
+  </form>
+</div>
+<!-- <h1><%= @items %></h1> -->
+<div class="row">
+
+    <div class="col-md-6">
+      <h2 class="text-center bg-success">Tareas Completas</h2>
+       <% @items.each do |item| %>
+          <% if item['done']==true %>
+            <ul id="lista-tareas" class="">
+              <li id="<%= item['id'] %>">
+                <span class="item"> <%= item['title'] %></span>
+                  <div class="pull-right ">
+                    <div class="center-block">
+                      <form action="/" method="post"style ='float: left; padding: 2px;' class="center-block">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <input  class="btn btn-danger" type="submit" value="Borrar">
+                        <input type="hidden" name="id" value=<%= item['id']%>>
+                      </form> 
+                    </div>
+                  </div>  
+                
+              </li>
+            </ul>
+          <% end %>  
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <h2 class="text-center bg-danger">Tareas Incompletas</h2>
+       <% @items.each do |item| %>
+          <% if item['done']==false %>
+            <ul id="lista-tareas" class="unstyled">
+              <li id="<%= item['id'] %>">
+                <span class="item"> <%= item['title'] %></span>
+                <span class="pull-right" >
+                  <form action="/" method="post" style ='float: left; padding: 2px;' >
+                    <input type="hidden" name="_method" value="patch"/>
+                    <input  class="btn btn-success" type="submit" value="Completar">
+                    <input type="hidden" name="done" value=<%= item['id']%>>
+                  </form>  
+                  <form action="/" method="post" style ='float: left; padding: 2px;' >
+                    <input type="hidden" name="_method" value="delete"/>
+                    <input  class="btn btn-danger" type="submit" value="Borrar">
+                    <input type="hidden" name="id" value=<%= item['id']%>>
+                  </form>  
+                </span>
+              </li>
+            </ul>
+          <% end %>  
+      <% end %>
+    </div>
+</div>   
